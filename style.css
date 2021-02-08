@@ -1,6 +1,9 @@
 /* Global --------------------------- */
 :root{/* referencia a pag inteira */
     --dark-blue: #363f5f;
+    --green: rgb(9, 117, 106);
+    --ligth-green:rgb(39, 187, 172);
+    --red: #e92929;
 
 }
 
@@ -9,10 +12,24 @@
     padding: 0;
     box-sizing: border-box;/* limite do preenchimento */
 }
+html{
+    font-size: 93.75%;/* 15px padrão para responsive */
+}
 
 body{
-    background: #fafffe;
+    background: #e8f1f0;
     font-family:  'Poppins', sans-serif
+}
+.sr-only{/* trick mantem visivel para leitores de tela */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: normal;
+    border-width: 0 ;
 }
 .container{
     width: min(90vw, 800px);/* seleciona o menor valor para pág */
@@ -26,9 +43,55 @@ h2{
     font-weight: normal;
 
 }
+/* Links and Butons ---------------- */
+a{
+    color: rgb(94, 84, 124);;
+    text-decoration: none;
+
+}
+a:hover{
+    color: var(--ligth-green);
+}
+button{
+    width: 100%;
+    height: 50px;
+    border: none;
+    color: white;
+    background: var(--green);
+    padding: 0;
+    border-radius: 0.25rem;
+    cursor: pointer;
+
+}
+button:hover{
+    background: var(--ligth-green);
+
+}
+.button.new{
+    display: inline-block;/* 2 propriedades */
+    margin-bottom: .8rem;
+
+}
+.button.cancel{
+    color: var(--red);
+    border: 2px var(--red) solid;
+    border-radius: 0.25rem;
+    height: 50px;
+    display: flex;/* habilita propriedades a baixo */
+    align-items: center;/* Y */
+    justify-content: center;/* X */
+    opacity: 0.6;
+
+
+}
+.button.cancel:hover{
+    opacity: 1;
+
+
+}
 /* Header --------------------------- */
 header{
-    background: rgb(39, 163, 151);
+    background: rgb(94, 84, 124);
     padding: 2rem 0 10rem;
     text-align: center;
 }
@@ -52,10 +115,14 @@ header{
     border-radius: 0.25rem;
     margin-bottom: 2rem;
     color: var(--dark-blue);
+    box-shadow: 3px 3px 10px #363f5f;
 }
 .card h3{
     font-weight: normal;
     font-size: 1rem;
+    display: flex;/* em linha dentro da caixa */
+    align-items: center;/* eixo Y */
+    justify-content: space-between;/* espaço entre elementos */
 }
 .card p{
     font-size: 2rem;
@@ -63,27 +130,37 @@ header{
     margin-top: 1rem;
 }
 .card.total{/* element card com classe green */
-    background: rgb(90, 207, 196);
+    background: var(--green);
     color: white;
 
 }
 
 /* Table ---------------------------*/
+#transaction{
+    display: block;/* pega todo width */
+    width: 100%;/* pega todo espaço */
+    overflow-x: auto;/* pega o que está tranbordando do eixo X adpta*/
+
+}
 #data-table{
     width: 100%;/* pega todo espaço */
     border-spacing: 0 0.5rem;
     color: #969cb3;
 }
 
-table thead tr th:first-child,/* pegando elementos especificos */
+table thead tr th:first-child,/* pseudoclasses pegando primeiros elementos especificos */
 table tbody tr td:first-child{
-    border-radius: 0.25rem 0 0 0.5rem;
+    border-radius: 0.25rem 0 0 0.25rem;
+}
+table thead tr th:last-child,/* pegando  últimos elementos especificos */
+table tbody tr td:last-child{
+    border-radius: 0 0.25rem 0.25rem 0;
 }
 td.description{
     color: var(--dark-blue);
 }
 td.income{
-    color: #12a454;
+    color: rgb(9, 117, 106);
 }
 td.expense{
     color: #e92929;
@@ -108,8 +185,64 @@ table td{
     background: white;
     padding: 1rem 2rem;
 }
+/* Modal------------------------- */
+.modal-overlay{/* caixa preta */
+    width: 100%;
+    height: 100%;/* ocupa 100% da pág */
+    background-color: rgb(0, 0, 0,0.7);
+    position: fixed;/* possibilita propriedades */
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;/* esconde espaço do elemento */
+    z-index: 999;/* liberado ao usar position  */
+}
+.modal-overlay.active{
+    opacity: 1;
+    visibility: visible;/* ativando visibilidade */
+}
+.modal{/* caixa branca */
+    background: #f0f2f5;
+    padding: 2.4rem;
+    position: relative;
+    border-radius: 0.3rem;
+    position: relative;
+    z-index: 1;
 
 
+}
+/* Form----------------------------- */
+#form{
+    max-width: 500px;
+
+}
+#form h2{
+    margin-top: 0;
+}
+input{/* caixas de texto */
+    border: none;
+    border-radius: 0.2rem;
+    padding: 0.8rem;
+    width: 100%;
+
+}
+.input-group{
+    margin-top: 0.8rem;
+}
+.input-group small{
+    opacity: 0.4;
+}
+.input-group.actions{
+    display: flex;/* destrava propriedades abaixo */
+    justify-content: space-between;
+    align-items: center;
+}
+.input-group.actions .button,
+.input-group.actions button{
+    width: 48%;
+}
 
 /* Footer */
 footer{
@@ -118,4 +251,14 @@ footer{
     color: var(--dark-blue);
     opacity: 0.6;
 }
-
+/* Responsive------------------- */
+@media(min-width:800px){ /* atrows - 800px pra cima muda */
+    html{
+        font-size: 87.5%;
+    }
+    #balance{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);/* frações */
+        gap: 2rem;/* espaço entre columns */
+    }
+}              
