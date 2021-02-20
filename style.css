@@ -231,7 +231,7 @@ input{/* caixas de texto */
 .input-group{
     margin-top: 0.8rem;
 }
-.input-group small{
+.input-group .help{
     opacity: 0.4;
 }
 .input-group.actions{
